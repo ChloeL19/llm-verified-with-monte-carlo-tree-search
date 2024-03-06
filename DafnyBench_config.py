@@ -1,4 +1,4 @@
 TEST_PROMPTS = [
-    "BinaryAddition"
+    "BinaryAddition_02"
 ]
 TRAIN_PROMPTS = None
