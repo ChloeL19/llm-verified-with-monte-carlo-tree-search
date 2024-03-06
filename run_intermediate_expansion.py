@@ -2,7 +2,7 @@ from montecarlo.node import Node
 from montecarlo.montecarlo import MonteCarlo
 
 from lang import can_be_solution
-from lang import score_func as uncached_score_func
+from lang import score_func_whole as uncached_score_func #NOTE: score_func_whole is more generalizable than just score_func
 
 from common_cache import create_cached_func
 score_func, cache_stats, reset_cache = create_cached_func(uncached_score_func)

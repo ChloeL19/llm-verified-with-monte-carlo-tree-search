@@ -22,6 +22,7 @@ elif MODEL_HOST == "huggingface":
         prompt, model_generation_args, num=1, return_hiddens=False, **kwargs
     ) -> List[str]:
         args = {**model_generation_args, **kwargs}
+        print(f"MODEL ARGUMENTS: {args}")
         num = num or 1
         model_input = tokenizer(prompt, return_tensors="pt").to("cuda")
         model.eval()

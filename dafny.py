@@ -86,6 +86,28 @@ def calculateScore_whole(msg: str) -> Optional[float]:
     print("SCORE_WHOLE")
     print(score_whole)
     # always return the better of the two scores
+    if score_whole == 1.0 and score == -1.0:
+        return 1.0
+    elif score_whole == 1.0 and score == 1.0:
+        return 1.0
+    elif score_whole == 1.0 and score == None:
+        return 1.0
+    elif score_whole == -1.0 and score == -1.0:
+        return -1.0
+    elif score_whole == -1.0 and score == 1.0:
+        return 1.0
+    elif score_whole == -1.0 and score == None:
+        return None
+    elif score_whole == None and score == -1.0:
+        return None
+    elif score_whole == None and score == 1.0:
+        return 1.0
+    else:
+        return None
+
+    
+
+    '''
     if score_whole:
         if score_whole == 1.0:
             return 1.0
@@ -93,7 +115,7 @@ def calculateScore_whole(msg: str) -> Optional[float]:
             return score_whole
         return score
     return score
-
+    '''
 
 def calculateScoreHelper_whole(msg: str) -> (Optional[float], Optional[str]):
     v = [s.strip() for s in filterDafny_whole(msg + "```")]

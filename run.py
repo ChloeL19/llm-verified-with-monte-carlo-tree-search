@@ -2,7 +2,7 @@ from montecarlo.node import Node
 from montecarlo.montecarlo import MonteCarlo
 
 from lang import can_be_solution
-from lang import score_func as uncached_score_func
+from lang import score_func_whole as uncached_score_func #NOTE: score_func_whole is generalized score_func
 
 from common_cache import create_cached_func
 score_func, cache_stats, reset_cache = create_cached_func(uncached_score_func)
@@ -14,14 +14,26 @@ from common_stats import stats
 
 import llm
 
+import tiktoken
+
+def num_tokens_from_string(string: str, encoding_name: str = "cl100k_base") -> int:
+    """Returns the number of tokens in a text string."""
+    encoding = tiktoken.get_encoding(encoding_name)
+    num_tokens = len(encoding.encode(string))
+    return num_tokens
+
 def generate_complete(text, montecarlo, current_completion_depth=1):
     if current_completion_depth >= max_completion_depth:
         return None
     prev = text
     texts = llm.generate(text, 1)
+    print(f"------number of tokens being sent to the LLM: {num_tokens_from_string(text)}")
+    print(f"------texts from the llm in generate_complete: {texts}")
     text = texts[0]
+    print(f"------number of tokens from the LLM: {num_tokens_from_string(text)}")
     score = score_func(text)
-    print(diffprompt(prev, texts))
+    print(f"MC OBSERVED SCORE: {score}")
+    #print(diffprompt(prev, texts))
     if score is not None:
         if score < 0:
             return None
@@ -30,13 +42,16 @@ def generate_complete(text, montecarlo, current_completion_depth=1):
                 montecarlo.solution = text
             return text
     else:
+        print(f"-----text variable when score none before next recursive completion call: {text}")
         return generate_complete(text, montecarlo, current_completion_depth + 1)
 
 
 def child_finder(node, montecarlo):
     if limit_depth(node):
         return
-
+    
+    print(f"!!!!!!Now generating another completion with max completion depth: {max_completion_depth} and limit depth: {limit_depth}")
+    #print(f"!!!!!!The state of the current node is: {node.state}")
     text = generate_complete(node.state, montecarlo)
     if text is None:
         node.update_win_value(-1)

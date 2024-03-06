@@ -1,4 +1,4 @@
 TEST_PROMPTS = [
-    "BinaryAddition_02"
+    "FindMaxWord"
 ]
 TRAIN_PROMPTS = None
