@@ -34,6 +34,7 @@ class CommonArguments:
     coq_import_lia: bool = field(default=False, metadata={"help": "Import Lia for Coq"})
     n_trials: int = field(default=10, metadata={"help": "Number of trials to run on a specified experiment"})
     clover: bool = field(default=False, metadata={"help": "Whether we are running clover experiments."})
+    dafnybench: bool = field(default=False, metadata={"help": "Whether we are running DafnyBench experiments."})
     experiment_name: str = field(default="run.py", metadata={"help": "Pick an experiment to run "})
     mins_timeout: float = field(default=None, metadata={"help": "Set a default timeout for each trial "})
     seed: int = field(default=None, metadata={"help": "Set the seed for reproducible behavior"})

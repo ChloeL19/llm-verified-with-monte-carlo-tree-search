@@ -3,6 +3,12 @@ from cmdline import args
 
 if args.clover:
     prompt = None
+    max_depth = 40
+    from clover_prompts import min_lines, expansion_count, check_func
+    assert LANG == "Dafny"
+elif args.dafnybench:
+    prompt = None
+    max_depth = 40
     from clover_prompts import min_lines, expansion_count, check_func
     assert LANG == "Dafny"
 else:

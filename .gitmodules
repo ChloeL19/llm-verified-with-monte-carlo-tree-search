@@ -1,3 +1,6 @@
 [submodule "Clover"]
 	path = Clover
 	url = git@github.com:ChuyueSun/Clover.git
+[submodule "DafnyBench"]
+	path = DafnyBench
+	url = git@github.com:ChloeL19/DafnyBench.git
